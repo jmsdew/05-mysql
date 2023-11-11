@@ -53,6 +53,61 @@ SELECT
  join ICECREAM_INFO b on (a.flavor = b.flavor)
  group by INGREDIENT_TYPE;
  
+-- 조건에 부합하는 중고거래 상태 조회하기
+
+SELECT
+    BOARD_ID ,
+    WRITER_ID ,
+    TITLE ,
+    PRICE ,
+    CASE
+        WHEN (status like 'RESERVED') then '예약중'
+        WHEN (status like 'SALE') then '판매중'
+        else '거래완료'
+    end as STATUS
+
+ FROM USED_GOODS_BOARD 
+ 
+ WHERE CREATED_DATE LIKE '2022-10-05'
+ ORDER BY BOARD_ID DESC;
+
+
+-- 진료과별 총 예약 횟수 출력하기
+SELECT
+    MCDP_CD as `진료과코드`,
+    count(*) as 5월예약건수
+
+  from APPOINTMENT 
+  where APNT_YMD like '2022-05%'
+ -- and APNT_CNCL_YN = 'n'
+  group by MCDP_CD
+  ORDER BY  5월예약건수 asc , MCDP_CD;
+ 
+ -- 상품 별 오프라인 매출 구하기
+ SELECT
+    a.PRODUCT_CODE ,
+    sum(a.PRICE*b.SALES_AMOUNT) as SALES ,
+ from PRODUCT a
+ join OFFLINE_SALE b on (a.PRODUCT_ID = b.PRODUCT_ID)
+ group by a.PRODUCT_CODE
+ order by SALES desc, a.PRODUCT_CODE ;
+
+
+-- DATETIME에서 DATE로 형 변환
+SELECT
+    ANIMAL_ID ,
+    NAME ,
+     DATE_FORMAT(DATETIME, '%Y-%m-%d') as '날짜'
+ from ANIMAL_INS ;
+
+
+ -- 동물 수 구하기
+SELECT
+    count(*) as 'count'
+  from ANIMAL_INS ;
+ 
+ -- 총합을 구하려면 그룹없이 count를 써주면 됨
+
 
 
 
