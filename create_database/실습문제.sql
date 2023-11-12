@@ -108,6 +108,15 @@ SELECT
  
  -- 총합을 구하려면 그룹없이 count를 써주면 됨
 
-
-
+-- 3월에 태어난 여성 회원 목록 출력하기
+SELECT
+    MEMBER_ID ,
+    MEMBER_NAME ,
+    GENDER ,
+    DATE_FORMAT(DATE_OF_BIRTH, '%Y-%m-%d') as 'DATE_OF_BIRTH'
+  from MEMBER_PROFILE 
+  where DATE_OF_BIRTH like '%03%'
+    and TLNO is not null
+    and gender like 'w'
+    order by MEMBER_ID ;
 
