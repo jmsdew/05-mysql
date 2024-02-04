@@ -1,0 +1,3 @@
+USE mysql;
+
+SELECT * FROM USER;
